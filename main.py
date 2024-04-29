@@ -3,6 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sentence_transformers import SentenceTransformer
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from BCEmbedding import EmbeddingModel
 import uvicorn
 import numpy as np
 from typing import List
@@ -35,7 +36,7 @@ def load_model():
     print(
         f"本次加载模型的设备为：{'GPU: ' + torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU.'}"
     )
-    return SentenceTransformer("./models/bge-large-zh-v1.5", device=device)
+    return EmbeddingModel(model_name_or_path="./maidalun/bce-embedding-base_v1", device=device, from_tf=True)
 
 
 model = load_model()
